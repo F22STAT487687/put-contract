@@ -17,9 +17,11 @@ export default function Index() {
   let contractAddress = "0x7Bb05D32199119EcabDE41737a3bf830c8934221"
 
   const updateContractValue = async () => {
-    contract.methods.students(address).call().then((_latestState) => {
-      updateValue(_latestState)
-    }).then(() => w3.eth.getTransactionCount(accounts[0]).then((nonce) => setTxCount(nonce))).catch((err) => console.log(err))
+    contract.methods.students(address).call()
+    .then(updateValue)
+    .then(() => w3.eth.getTransactionCount(address))
+    .then(setTxCount)
+    .catch((err) => console.log(err))
   }
 
   const handleChange = (event, selector) => {
@@ -27,15 +29,15 @@ export default function Index() {
 
     if (selector === "op1") {
       setOpt1(event.target.value);
-      x = '(' + event.target.value + ', ' + opt2 + ', ' + opt3 + ')'
+      x = `(${event.target.value}, ${opt2}, ${opt3})`
 
     } else if (selector === "op2") {
       setOpt2(event.target.value);
-      x = '(' + opt1 + ', ' + event.target.value + ', ' + opt3 + ')'
+      x = `(${opt1}, ${event.target.value}, ${opt3})`
     }
     else if (selector === "op3") {
       setOpt3(event.target.value);
-      x = '(' + opt1 + ', ' + opt2 + ', ' + event.target.value + ')'
+      x = `(${opt1}, ${opt2}, ${event.target.value})`
     }
 
     
@@ -88,7 +90,7 @@ export default function Index() {
       <p>This quiz targets the Goerli contract at {contractAddress}</p>
       <p>This is the value for my address {currentValue}</p>
       <p>Current transaction count for my address is {txCount}</p>
-      <p>Latest transaction hash: {txId}</p>
+      <p>Latest transaction hash: <a href={"https://goerli.etherscan.io/tx/" + txId}>{txId}</a></p>
 
       <button onClick={event => updateContractValue()}>
         Query View
@@ -110,10 +112,10 @@ export default function Index() {
       <input type="radio" value="phase_2" name="phase" onChange={event => handleChange(event, "op2")} /> Phase 2
 
       <p>Answer choise: <br /></p>
-      <input type="radio" value="A" name="phase" onChange={event => handleChange(event, "op3")} /> A
-      <input type="radio" value="B" name="phase" onChange={event => handleChange(event, "op3")} /> B
-      <input type="radio" value="C" name="phase" onChange={event => handleChange(event, "op3")} /> C
-      <input type="radio" value="D" name="phase" onChange={event => handleChange(event, "op3")} /> D
+      <input type="radio" value="A" name="choice" onChange={event => handleChange(event, "op3")} /> A
+      <input type="radio" value="B" name="choice" onChange={event => handleChange(event, "op3")} /> B
+      <input type="radio" value="C" name="choice" onChange={event => handleChange(event, "op3")} /> C
+      <input type="radio" value="D" name="choice" onChange={event => handleChange(event, "op3")} /> D
 
       <h3>Current input message: {message}</h3>
 
