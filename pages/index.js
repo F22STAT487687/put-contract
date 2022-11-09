@@ -119,7 +119,7 @@ export default function Index() {
 
       <h3>Current input message: {message}</h3>
 
-      <button onClick={event => callPutContract({message})}>
+      <button onClick={event => callPutContract(message)}>
         Send
       </button>
     </div>
