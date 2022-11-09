@@ -91,6 +91,7 @@ export default function Index() {
       <p>This is the value for my address {currentValue}</p>
       <p>Current transaction count for my address is {txCount}</p>
       <p>Latest transaction hash: <a href={"https://goerli.etherscan.io/tx/" + txId}>{txId}</a></p>
+      <p>You may use the tool <a href="https://emn178.github.io/online-tools/keccak_256.html">here</a> to check your input is expected.</p>
 
       <button onClick={event => updateContractValue()}>
         Query View
